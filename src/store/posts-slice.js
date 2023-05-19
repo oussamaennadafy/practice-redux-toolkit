@@ -7,15 +7,12 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     addPost(state, action) {
-      const newState = structuredClone(state);
-      newState.push(action.payload.post);
-      return newState;
+      state.unshift(action.payload.post);
+      // state.push(action.payload.post);
     },
     reactToPost(state, action) {
-      const newState = structuredClone(state);
-      const post = newState.find((post) => post.id === action.id);
+      const post = state.find((post) => post.id === action.id);
       post.reactions[action.payload.reaction]++;
-      return newState;
     },
   },
 });
