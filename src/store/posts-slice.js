@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { produce } from "immer";
 
 const initialState = [];
 
@@ -8,11 +9,16 @@ const postsSlice = createSlice({
   reducers: {
     addPost(state, action) {
       state.unshift(action.payload.post);
-      // state.push(action.payload.post);
     },
     reactToPost(state, action) {
-      const post = state.find((post) => post.id === action.id);
-      post.reactions[action.payload.reaction]++;
+      const { postId, reactionType } = action.payload;
+      // console.log(postId, reactionType);
+      const newState = JSON.parse(JSON.stringify(state));
+      const post = newState.find((post) => post.id === postId);
+
+      post.reactions.find((reaction) => reaction.label === reactionType)
+        .count++;
+      return newState;
     },
   },
 });
