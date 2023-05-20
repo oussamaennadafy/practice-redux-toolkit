@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import postsSlice from "../../store/posts-slice";
 import reactions from "../../data/reactions";
-import { v4 } from "uuid";
+import { nanoid } from "@reduxjs/toolkit";
 
 function AddPost() {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function AddPost() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const id = v4();
+    const id = nanoid();
     const createdAt = Date.now();
     const { title, content, author } = form;
     const post = { id, title, content, author, createdAt, reactions };
