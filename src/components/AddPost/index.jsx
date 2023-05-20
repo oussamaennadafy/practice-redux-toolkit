@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import postsSlice from "../../store/posts-slice";
-import reactions from "../../data/reactions";
-import { nanoid } from "@reduxjs/toolkit";
+import postsSlice from "./../../store/posts-slice";
 
 function AddPost() {
   const dispatch = useDispatch();
@@ -20,15 +18,13 @@ function AddPost() {
     const { name, value } = event.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const id = nanoid();
-    const createdAt = Date.now();
     const { title, content, author } = form;
-    const post = { id, title, content, author, createdAt, reactions };
     if (!title || !content || !author)
       return setError("please fill all inputs");
-    dispatch(postsSlice.actions.addPost({ post }));
+    dispatch(postsSlice.actions.addPost({ title, content, author }));
     setForm(initialFormState);
     setError(null);
   };

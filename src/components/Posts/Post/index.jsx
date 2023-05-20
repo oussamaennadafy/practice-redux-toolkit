@@ -1,6 +1,7 @@
 import React from "react";
 import postsSlice from "../../../store/posts-slice";
 import { useDispatch } from "react-redux";
+import { reactionsIcons } from "./../../../data/reactions";
 
 function Post({ post }) {
   const dispatch = useDispatch();
@@ -19,12 +20,12 @@ function Post({ post }) {
         by {author} , <span className="text-sm">{date}</span>
       </p>
       <div className="flex gap-2">
-        {reactions.map((reaction) => (
+        {reactionsIcons.map((reaction) => (
           <button
             onClick={() => addReaction(post.id, reaction.label)}
             key={reaction.label}
           >
-            {reaction.icon} {reaction.count}
+            {reaction.icon} {reactions[reaction.label]}
           </button>
         ))}
       </div>

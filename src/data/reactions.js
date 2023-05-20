@@ -1,27 +1,30 @@
-export default [
+export const reactionsIcons = [
   {
     label: "like",
     icon: "👍",
-    count: 0,
   },
   {
     label: "wow",
     icon: "😲",
-    count: 0,
   },
   {
     label: "heart",
     icon: "❤",
-    count: 0,
   },
   {
     label: "rocket",
     icon: "🚀",
-    count: 0,
   },
   {
     label: "coffee",
     icon: "☕",
-    count: 0,
   },
 ];
+
+export const reactionsInstance = {
+  like: 0,
+  wow: 0,
+  heart: 0,
+  rocket: 0,
+  coffee: 0,
+};
