@@ -12,6 +12,13 @@ function Post({ post }) {
   const addReaction = (postId, reactionType) => {
     dispatch(postsSlice.actions.reactToPost({ postId, reactionType }));
   };
+
+  const reactionsButtons = Object.entries(reactionsIcons).map((reaction) => (
+    <button onClick={() => addReaction(post.id, reaction[0])} key={reaction[0]}>
+      {reaction[1]} {reactions[reaction[0]]}
+    </button>
+  ));
+
   return (
     <article className="border border-gray-100 rounded-md w-full p-3 flex flex-col gap-2 text-white">
       <strong>{title}</strong>
@@ -19,16 +26,7 @@ function Post({ post }) {
       <p>
         by {author} , <span className="text-sm">{date}</span>
       </p>
-      <div className="flex gap-2">
-        {reactionsIcons.map((reaction) => (
-          <button
-            onClick={() => addReaction(post.id, reaction.label)}
-            key={reaction.label}
-          >
-            {reaction.icon} {reactions[reaction.label]}
-          </button>
-        ))}
-      </div>
+      <div className="flex gap-2">{reactionsButtons}</div>
     </article>
   );
 }
