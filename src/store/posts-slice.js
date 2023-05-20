@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { produce } from "immer";
 
 const initialState = [];
 
@@ -12,7 +11,6 @@ const postsSlice = createSlice({
     },
     reactToPost(state, action) {
       const { postId, reactionType } = action.payload;
-      // console.log(postId, reactionType);
       const newState = JSON.parse(JSON.stringify(state));
       const post = newState.find((post) => post.id === postId);
 

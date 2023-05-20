@@ -35,7 +35,10 @@ function AddPost() {
   return (
     <div className="w-full flex text-center flex-col gap-4 my-6 text-white">
       <h1 className="text-2xl">Add new Post</h1>
-      <form className="flex flex-col w-1/2 mx-auto" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col w-full px-5 sm:w-full mx-auto"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col">
           <label htmlFor="title">title</label>
           <input
