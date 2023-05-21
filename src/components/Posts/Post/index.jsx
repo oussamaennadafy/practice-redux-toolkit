@@ -1,16 +1,22 @@
 import React from "react";
 import postsSlice from "../../../store/posts-slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reactionsIcons } from "./../../../data/reactions";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Post({ post }) {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((store) => store.auth.isLoggedIn);
 
   const { title, content, author, createdAt, reactions } = post;
   const date = new Date(createdAt).toDateString();
 
   const handleReact = (postId, reactionType) => {
-    dispatch(postsSlice.actions.reactToPost({ postId, reactionType }));
+    if (isLoggedIn)
+      dispatch(postsSlice.actions.reactToPost({ postId, reactionType }));
+    else toast("please login first");
   };
 
   const reactionsButtons = Object.entries(reactionsIcons).map((reaction) => (
@@ -27,6 +33,7 @@ function Post({ post }) {
         by {author} , <span className="text-sm">{date}</span>
       </p>
       <div className="flex gap-2">{reactionsButtons}</div>
+      <ToastContainer />
     </article>
   );
 }
