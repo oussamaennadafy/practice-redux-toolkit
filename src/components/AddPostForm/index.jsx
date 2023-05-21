@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import postsSlice from "./../../store/posts-slice";
+import postsSlice from "../../store/posts-slice";
 
 function AddPost() {
   const dispatch = useDispatch();
@@ -29,8 +29,8 @@ function AddPost() {
     setError(null);
   };
   return (
-    <div className="w-full flex text-center flex-col gap-4 my-6 text-white">
-      <h1 className="text-2xl">Add new Post</h1>
+    <>
+      <h1 className="text-2xl text-center">Add new Post</h1>
       <form
         className="flex flex-col w-full px-5 sm:w-full mx-auto"
         onSubmit={handleSubmit}
@@ -41,6 +41,7 @@ function AddPost() {
             onChange={handleChange}
             value={form.title}
             name="title"
+            placeholder="title"
             type="text"
             id="title"
             className="text-black px-2 py-1"
@@ -69,13 +70,14 @@ function AddPost() {
             value={form.content}
             name="content"
             id="content"
+            placeholder="content"
             className="text-black px-2 py-1"
             cols="30"
             rows="5"
           ></textarea>
         </div>
         {error ? (
-          <p className="mt-2 text-red-700 font-medium">{error}</p>
+          <p className="mt-2 text-red-700 font-medium text-center">{error}</p>
         ) : null}
         <button
           className="w-full bg-white text-black mt-5 py-2 rounded"
@@ -84,7 +86,7 @@ function AddPost() {
           Save post
         </button>
       </form>
-    </div>
+    </>
   );
 }
 

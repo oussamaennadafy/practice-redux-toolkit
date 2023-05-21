@@ -9,12 +9,12 @@ function Post({ post }) {
   const { title, content, author, createdAt, reactions } = post;
   const date = new Date(createdAt).toDateString();
 
-  const addReaction = (postId, reactionType) => {
+  const handleReact = (postId, reactionType) => {
     dispatch(postsSlice.actions.reactToPost({ postId, reactionType }));
   };
 
   const reactionsButtons = Object.entries(reactionsIcons).map((reaction) => (
-    <button onClick={() => addReaction(post.id, reaction[0])} key={reaction[0]}>
+    <button onClick={() => handleReact(post.id, reaction[0])} key={reaction[0]}>
       {reaction[1]} {reactions[reaction[0]]}
     </button>
   ));
