@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import authSlice from "../../store/auth-slice";
 
@@ -6,16 +6,41 @@ function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
+
+  const fetchUser = async (email, password) => {
+    setLoader(true);
+    fetch(`http://localhost:8000/api/v1/users`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          dispatch(
+            authSlice.actions.login({
+              id: data.body.user._id,
+              firstName: data.body.user.firstName,
+              lastName: data.body.user.lastName,
+            })
+          );
+        } else {
+          throw new Error(data.message);
+        }
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => setLoader(false));
+  };
 
   const handleLogin = (event) => {
     event.preventDefault();
-    if (email && password) {
-      dispatch(authSlice.actions.login({ email, password }));
-      setError(null);
-    } else {
-      setError("please fill all inputs");
-    }
+    if (!email || !password) return setError("please fill all inputs");
+    setError(null);
+    fetchUser(email, password);
   };
   return (
     <>
@@ -51,7 +76,7 @@ function AuthForm() {
           className="bg-violet-600 py-2 rounded-md text-white"
           type="submit"
         >
-          Login
+          {loader ? "loading..." : "login"}
         </button>
       </form>
     </>
