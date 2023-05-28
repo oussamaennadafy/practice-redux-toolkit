@@ -9,7 +9,7 @@ const initialState = {
 
 export const fetchUser = createAsyncThunk(
   "auth/login",
-  ({ email, password }, something) => {
+  ({ email, password }) => {
     return fetch(`http://localhost:8000/api/v1/users`, {
       method: "post",
       headers: {
@@ -29,21 +29,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // login(state, action) {
-    //   const { id, firstName, lastName } = action.payload;
-    //   console.log(action);
-    //   // if ((id, firstName, lastName))
-    //   //   return {
-    //   //     ...state,
-    //   //     isLoggedIn: true,
-    //   //     user: {
-    //   //       id,
-    //   //       firstName,
-    //   //       lastName,
-    //   //     },
-    //   //   };
-    //   // else return initialState;
-    // },
     logout() {
       return initialState;
     },

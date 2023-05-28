@@ -6,40 +6,11 @@ function AuthForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { error, loading } = useSelector((store) => store.auth);
-  // const [error, setError] = useState(null);
-  // const [loader, setLoader] = useState(false);
-  const dispatch = useDispatch();
 
-  // const fetchUser = async (email, password) => {
-  //   setLoader(true);
-  //   fetch(`http://localhost:8000/api/v1/users`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ email, password }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.status === "success") {
-  //         dispatch(
-  //           authSlice.actions.login({
-  //             id: data.body.user._id,
-  //             firstName: data.body.user.firstName,
-  //             lastName: data.body.user.lastName,
-  //           })
-  //         );
-  //       } else {
-  //         throw new Error(data.message);
-  //       }
-  //     });
-  // };
+  const dispatch = useDispatch();
 
   const handleLogin = (event) => {
     event.preventDefault();
-    // if (!email || !password) return setError("please fill all inputs");
-    // setError(null);
-    // fetchUser(email, password);
     dispatch(fetchUser({ email, password }));
   };
   return (
